@@ -1,10 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
-    fetchAllMonsters()
+    fetchFiftyMonsters()
     createNewMonster()
+    turnPage()
 })
-
-function fetchAllMonsters() {
-    fetch(`http://localhost:3000/monsters/?_limit=50`)
+//code regarding turning the page coded along to get idea of how to do it. not doing deliverable #2
+let currentPageNumber = 1 //need this for the fetch string interpolation
+//fetch50 monsters at a time and do a fetch request with each page turn so only 50 at a time
+function fetchFiftyMonsters() {
+    fetch(`http://localhost:3000/monsters/?_limit=50&_page=${currentPageNumber}`)
     .then(res => res.json())
     .then(json => json.forEach(listMonsters))
 }
@@ -24,13 +27,7 @@ function listMonsters(monsters) {
     pDescription.textContent = `Description: ${monsters.description}`
 
     divContainer.append(h2Name, h3Age, pDescription)
-    document.querySelector('body').append(divContainer)
-
-    // let buttonForward = querySelector("#forward")
-    // console.log(buttonForward)
-    // buttonForward.addEventListener ('click', (e) =>
-    //     fetchAllMonsters())
-    
+    document.querySelector('body').append(divContainer)    
 }
 
 function createNewMonster(data) {
@@ -52,14 +49,14 @@ function createNewMonster(data) {
     divForForm.append(formMonster)
 }
 
-
-
-   // buttonCreate.addEventListener('submit' (e) => {
-    //     // e.preventDefault()
-    //     let newMonster = {
-    //         name: e.target.formName.value,
-    //         age: e.target.formAge.value,
-    //         description: e.target.formDescripton.value
-    //     }
-    //         return newMonster;
-    // // // })
+//buttons - use event + incrementation (like adding inventory)\
+function turnPage(){
+    document.querySelector("#forward").addEventListener('click', () => {
+        currentPage++
+        fetchFiftyMonsters()
+    })
+    document.querySelector("#back").addEventListener('click', () => {
+        currentPage--
+        fetchFiftyMonsters()
+    })
+}
