@@ -17,11 +17,11 @@ function listMonsters(monsters) {
 
     divContainer.className = 'monster-info'
     h2Name.className = 'monster-name'
-    h2Name.textContent = monsters.name
+    h2Name.textContent = `Name: ${monsters.name}`
     h3Age.className = 'monster-age'
-    h3Age.textContent = monsters.age
+    h3Age.textContent = `Age: ${monsters.age}`
     pDescription.className = 'monster-info'
-    pDescription.textContent = monsters.description
+    pDescription.textContent = `Description: ${monsters.description}`
 
     divContainer.append(h2Name, h3Age, pDescription)
     document.querySelector('body').append(divContainer)
@@ -34,18 +34,27 @@ function listMonsters(monsters) {
 }
 
 function createNewMonster(data) {
-    // let divForForm = document.querySelector('create-monster');
-    let formMonster = document.createElement('form');
-    formMonster.setAttribute("id", "monsterForm");
-    let formName = document.createElement('input');
-    formName.innerText = "name..."
+    let divForForm = document.querySelector('#create-monster')
+    let formMonster = document.createElement('form')
+    formMonster.id = "monsterForm"
+    let formName = document.createElement('input')
+    formName.id = "monsterName"
+    formName.placeholder = "name..."
     let formAge = document.createElement('input')
-    formAge.innerText = "age..."
+    formAge.id = "monsterAge"
+    formAge.placeholder = "age..."
     let formDescription = document.createElement('input')
-    formDescription.innerText = "description..."
+    formDescription.id = "monsterDescription"
+    formDescription.placeholder = "description..."
     let buttonCreate = document.createElement('button')
-    buttonCreate.innerHTML = "Create"
-    // buttonCreate.addEventListener('submit' (e) => {
+    buttonCreate.textContent = "Create"
+    formMonster.append(formName, formAge, formDescription, buttonCreate)
+    divForForm.append(formMonster)
+}
+
+
+
+   // buttonCreate.addEventListener('submit' (e) => {
     //     // e.preventDefault()
     //     let newMonster = {
     //         name: e.target.formName.value,
@@ -54,9 +63,3 @@ function createNewMonster(data) {
     //     }
     //         return newMonster;
     // // // })
-    formMonster.append(formName, formAge, formDescription, buttonCreate)
-    // divForForm.append(formMonster)
-    
-    
- 
-}
