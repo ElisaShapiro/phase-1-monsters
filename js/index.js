@@ -9,7 +9,10 @@ let currentPageNumber = 1 //need this for the fetch string interpolation
 function fetchFiftyMonsters() {
     fetch(`http://localhost:3000/monsters/?_limit=50&_page=${currentPageNumber}`)
     .then(res => res.json())
-    .then(json => json.forEach(listMonsters))
+    .then(json => {
+        document.querySelector("#monster-container").textContent = "";
+        json.forEach(listMonsters)
+    })
 }
 
 function listMonsters(monsters) {
@@ -27,7 +30,7 @@ function listMonsters(monsters) {
     pDescription.textContent = `Description: ${monsters.description}`
 
     divContainer.append(h2Name, h3Age, pDescription)
-    document.querySelector('body').append(divContainer)    
+    document.querySelector("#monster-container").append(divContainer)    
 }
 
 function createNewMonster(data) {
@@ -52,11 +55,11 @@ function createNewMonster(data) {
 //buttons - use event + incrementation (like adding inventory)\
 function turnPage(){
     document.querySelector("#forward").addEventListener('click', () => {
-        currentPage++
+        currentPageNumber++
         fetchFiftyMonsters()
     })
     document.querySelector("#back").addEventListener('click', () => {
-        currentPage--
+        currentPageNumber--
         fetchFiftyMonsters()
     })
 }
